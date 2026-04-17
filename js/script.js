@@ -191,4 +191,32 @@ document.addEventListener('DOMContentLoaded', () => {
             walk(document.body);
         });
     }
+
+    // 8. WhatsApp Booking Logic
+    const waSubmitBtn = document.getElementById('waSubmitBtn');
+    if (waSubmitBtn) {
+        waSubmitBtn.addEventListener('click', () => {
+            const name = document.getElementById('waName').value.trim();
+            const phone = document.getElementById('waPhone').value.trim();
+            
+            if (!name || !phone) {
+                alert(isBengali ? "অনুগ্রহ করে আপনার নাম এবং ফোন নম্বর লিখুন।" : "Please enter both your name and phone number.");
+                return;
+            }
+            
+            // Format the message
+            const message = isBengali
+                ? `নমস্কার, আমি একটি অ্যাপয়েন্টমেন্ট বুক করতে চাই।\n*নাম:* ${name}\n*ফোন:* ${phone}`
+                : `Hello, I would like to book an appointment.\n*Name:* ${name}\n*Phone:* ${phone}`;
+                
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Redirect to WhatsApp
+            window.open(`https://wa.me/919748229595?text=${encodedMessage}`, '_blank');
+            
+            // Clear input fields
+            document.getElementById('waName').value = '';
+            document.getElementById('waPhone').value = '';
+        });
+    }
 });
